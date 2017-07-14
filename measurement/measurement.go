@@ -9,6 +9,7 @@ type Int int
 type Longint int64
 type Float float32
 type Double float64
+type String string
 
 type Measurement interface {
 	Value() string
@@ -28,4 +29,8 @@ func (m Float) Value() string {
 
 func (m Double) Value() string {
 	return fmt.Sprintf("%g", m)
+}
+
+func (m String) Value() string {
+	return string(m)
 }

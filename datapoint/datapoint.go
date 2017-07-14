@@ -30,19 +30,18 @@ func (p *Datapoint) UnmarshalJSON(bs []byte) error {
 		return errors.New("Not a datapoint")
 	}
 	values := strings.Split(strings.Trim(s, "[]"), ",")
-	if len(values) != 3 {
-		return errors.New("Not a datapoint")
-	}
+
 	timestamp, err := strconv.ParseInt(values[0], 10, 64)
 	if err != nil {
 		return nil
 	}
 	p.Timestamp = time.Unix(0, timestamp*int64(time.Millisecond))
-	p.Measure, err = measurement.FromString(values[1])
+	lastElement := len(values) - 1
+	p.Measure, err = measurement.FromString(strings.Join(values[1:lastElement], ","))
 	if err != nil {
 		return err
 	}
-	q, err := strconv.Atoi(values[2])
+	q, err := strconv.Atoi(values[len(values)-1])
 	if err != nil {
 		return err
 	}

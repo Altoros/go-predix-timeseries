@@ -31,7 +31,7 @@ func FromString(s string) (Measurement, error) {
 			}
 			return Double(floatMeasure), nil
 		default:
-			return nil, err
+			return String(s), nil
 		}
 	default:
 		return nil, err
